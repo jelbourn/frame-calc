@@ -18,6 +18,8 @@
   // Inner dimensions for reference only
   $: innerWidth = pictureWidth - (2 * rabbetDepth);
   $: innerHeight = pictureHeight - (2 * rabbetDepth);
+
+  $: rabbetCorner = frameThickness - rabbetDepth;
 </script>
 
 <form>
@@ -33,10 +35,12 @@
 </form>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="" style="width: 800px; height: 800px;">
-  <polygon points="0,0 {cutWidth * scale},0 {(cutWidth - frameThickness) * scale},{frameThickness * scale} {frameThickness * scale},{frameThickness * scale}"/>
-  <polygon points="0,0 0,{cutHeight * scale} {frameThickness * scale},{(cutHeight - frameThickness) * scale} {frameThickness * scale},{frameThickness * scale}"></polygon>
-  <polygon points="0,{cutHeight * scale} {frameThickness * scale},{(cutHeight - frameThickness) * scale} {(cutWidth - frameThickness) * scale},{(cutHeight - frameThickness) * scale} {cutWidth * scale},{cutHeight * scale}"></polygon>
-  <polygon points="{cutWidth * scale},{cutHeight * scale} {cutWidth * scale},0 {(cutWidth - frameThickness) * scale},{frameThickness * scale} {(cutWidth - frameThickness) * scale},{(cutHeight - frameThickness) * scale}"></polygon>
+  <polygon id="top" points="0,0 {cutWidth * scale},0 {(cutWidth - frameThickness) * scale},{frameThickness * scale} {frameThickness * scale},{frameThickness * scale}"/>
+  <polygon id="left" points="0,0 0,{cutHeight * scale} {frameThickness * scale},{(cutHeight - frameThickness) * scale} {frameThickness * scale},{frameThickness * scale}"></polygon>
+  <polygon id="bottom" points="0,{cutHeight * scale} {frameThickness * scale},{(cutHeight - frameThickness) * scale} {(cutWidth - frameThickness) * scale},{(cutHeight - frameThickness) * scale} {cutWidth * scale},{cutHeight * scale}"></polygon>
+  <polygon id="right" points="{cutWidth * scale},{cutHeight * scale} {cutWidth * scale},0 {(cutWidth - frameThickness) * scale},{frameThickness * scale} {(cutWidth - frameThickness) * scale},{(cutHeight - frameThickness) * scale}"></polygon>
+
+  <polygon id="rabbet" stroke-width="0.25" stroke-dasharray="2 0.5" points="{rabbetCorner * scale},{rabbetCorner * scale} {rabbetCorner * scale},{(frameThickness + innerHeight + rabbetDepth) * scale} {(rabbetDepth + innerWidth + frameThickness) * scale},{(frameThickness + innerHeight + rabbetDepth) * scale} {(rabbetDepth + innerWidth + frameThickness) * scale},{rabbetCorner * scale}"></polygon>
 </svg>
 
 <style>
@@ -55,6 +59,11 @@
     fill: rosybrown;
     stroke: none;
     margin: 16px;
+  }
+
+  #rabbet {
+    fill: transparent;
+    stroke: ghostwhite;
   }
 
   input {
