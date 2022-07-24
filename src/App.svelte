@@ -4,7 +4,7 @@
   let pictureHeight = 11;
 
   // Default to 3/8 rabbet
-  let rabbetDepth = 0.875;
+  let rabbetDepth = 0.375;
 
   // Default to frame width of 1.5
   let frameThickness = 1.5;
