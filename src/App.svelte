@@ -15,11 +15,35 @@
   $: cutWidth = (2 * frameThickness) + pictureWidth - (2 * rabbetDepth);
   $: cutHeight = (2 * frameThickness) + pictureHeight - (2 * rabbetDepth);
 
+  $: cutWidthFractional = toFractional(cutWidth);
+  $: cutHeightFractional = toFractional(cutHeight);
+
   // Inner dimensions for reference only
   $: innerWidth = pictureWidth - (2 * rabbetDepth);
   $: innerHeight = pictureHeight - (2 * rabbetDepth);
 
   $: rabbetCorner = frameThickness - rabbetDepth;
+
+  function toFractional(value: number): string {
+    const wholePart = Math.trunc(value);
+    const fractionalPart = value - wholePart;
+
+    // Yeah yeah, imprecise floating point calculation
+    // and least common denominator algorithm, I know, but
+    // we're only talking about 32 here.
+    if (fractionalPart % 0.03125 !== 0) {
+      return '';
+    }
+
+    let numerator = fractionalPart / 0.03125;
+    let denominator = 32;
+    while (numerator % 2 === 0 && denominator % 2 === 0) {
+      numerator /= 2;
+      denominator /= 2;
+    }
+
+    return ` (${wholePart} ${numerator}/${denominator})`;
+  }
 </script>
 
 <form>
@@ -28,8 +52,8 @@
   <label>Rabbet depth <input type="number" bind:value="{rabbetDepth}"></label>
   <label>Frame thickness <input type="number" bind:value="{frameThickness}"></label>
   <label>Scale <input type="range" min="1" max="8" bind:value="{scale}"></label>
-  <span>Cut width: {cutWidth}</span>
-  <span>Cut height: {cutHeight}</span>
+  <span>Cut width: {cutWidth} {cutWidthFractional}</span>
+  <span>Cut height: {cutHeight} {cutHeightFractional}</span>
   <span>Inner width: {innerWidth}</span>
   <span>Inner height: {innerHeight}</span>
 </form>
