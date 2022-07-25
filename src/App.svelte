@@ -59,6 +59,7 @@
     fill: rosybrown;
     stroke: none;
     margin: 16px;
+    overflow: visible;
   }
 
   #rabbet {
