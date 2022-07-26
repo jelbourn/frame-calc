@@ -31,7 +31,7 @@
     // Yeah yeah, imprecise floating point calculation
     // and least common denominator algorithm, I know, but
     // we're only talking about 32 here.
-    if (fractionalPart % 0.03125 !== 0) {
+    if (fractionalPart === 0 || fractionalPart % 0.03125 !== 0) {
       return '';
     }
 
