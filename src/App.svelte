@@ -47,10 +47,10 @@
 </script>
 
 <form>
-  <label>Picture width <input type="number" bind:value="{pictureWidth}"></label>
-  <label>Picture height <input type="number" bind:value="{pictureHeight}"></label>
-  <label>Rabbet depth <input type="number" bind:value="{rabbetDepth}"></label>
-  <label>Frame thickness <input type="number" bind:value="{frameThickness}"></label>
+  <label>Picture width <input type="number" min="0" bind:value="{pictureWidth}"></label>
+  <label>Picture height <input type="number" min="0" bind:value="{pictureHeight}"></label>
+  <label>Rabbet depth <input type="number" min="0" bind:value="{rabbetDepth}"></label>
+  <label>Frame thickness <input type="number" min="0" bind:value="{frameThickness}"></label>
   <label>Scale <input type="range" min="1" max="8" bind:value="{scale}"></label>
   <span>Cut width: {cutWidth} {cutWidthFractional}</span>
   <span>Cut height: {cutHeight} {cutHeightFractional}</span>
